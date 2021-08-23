@@ -208,7 +208,11 @@ class Contact {
         ?.map((m) => PostalAddress.fromMap(m));
     avatar = m["avatar"];
     try {
-      birthday = DateTime.parse(m["birthday"]);
+      if(m["birthday"] == null) {
+        birthday = DateTime.now(); /// workaround to prevent birthday cast exception, as birthday is not needed
+      } else {
+        birthday = DateTime.parse(m["birthday"]);
+      }
     } catch (e) {
       birthday = null;
     }
